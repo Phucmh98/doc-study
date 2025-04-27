@@ -1,0 +1,72 @@
+---
+title: Zustand
+description: (state management library)
+---
+
+## Zustand là gì?
+
+Zustand là một thư viện quản lý trạng thái (state management library) dành cho React. Nó được thiết kế để nhỏ gọn (small), nhanh (fast) và có thể mở rộng (scalable), với một API tối giản, tập trung vào cách tiếp cận dựa trên hook.
+
+Các đặc điểm chính của Zustand:
+
+- **Đơn giản và Nhỏ gọn**: Zustand có rất ít boilerplate (mã mẫu lặp đi lặp lại). Việc tạo và sử dụng store rất trực quan chỉ với một vài dòng code. Kích thước thư viện rất nhỏ.
+
+- **Dựa trên Hooks**: Bạn tương tác với Zustand store chủ yếu thông qua các React Hooks, làm cho nó tích hợp mượt mà với các functional component của React.
+
+- **Không cần Context Provider**: Khác với một số thư viện quản lý trạng thái khác hoặc cách sử dụng React Context cho trạng thái toàn cục, Zustand store không yêu cầu một Context Provider bọc quanh cây component của bạn. Bạn có thể truy cập store ở bất cứ đâu mà không cần "provider hell" (tình trạng có quá nhiều provider lồng nhau).
+
+- **Hiệu suất tốt**: Zustand sử dụng hệ thống selectors (bộ chọn) để giúp component của bạn chỉ re-render (render lại) khi phần trạng thái mà nó đang sử dụng thay đổi, thay vì toàn bộ trạng thái. Điều này giúp tối ưu hiệu suất.
+
+- **Cú pháp dễ hiểu**: Cú pháp cập nhật trạng thái trong Zustand (sử dụng hàm set) thường được nhiều người thấy dễ đọc và dễ tiếp cận hơn so với các cách tiếp cận yêu cầu tính bất biến (immutability) nghiêm ngặt hoặc nhiều khái niệm phức tạp. Mặc dù cú pháp trông giống như thay đổi trực tiếp, Zustand vẫn đảm bảo cập nhật trạng thái một cách bất biến dưới nội bộ.
+
+- **Có thể mở rộng với Middleware**: Bạn có thể dễ dàng thêm các chức năng mở rộng như lưu trạng thái vào localStorage, tích hợp với Redux DevTools, v.v., thông qua các middleware.
+
+
+## Cách hoạt động cơ bản của Zustand
+
+1. **Tạo Store**: Bạn sử dụng hàm `create` từ Zustand để định nghĩa store của mình. Hàm này nhận một callback, trong đó bạn định nghĩa trạng thái ban đầu và các hành động (actions) để cập nhật trạng thái đó.
+
+```js
+import { create } from 'zustand';
+
+const useCounterStore = create((set) => ({
+  count: 0, // Trạng thái ban đầu
+  increment: () => set(state => ({ count: state.count + 1 })), // Hành động tăng
+  decrement: () => set(state => ({ count: state.count - 1 })), // Hành động giảm
+}));
+```
+
+
+2. **Sử dụng trong Component**: Trong component React của bạn, bạn gọi hook được tạo ra từ hàm `create` (ví dụ: `useCounterStore`). Bạn có thể chọn (select) chỉ phần trạng thái hoặc hành động mà component cần.
+
+```js
+import { useCounterStore } from './counterStore'; // Import store
+
+function CounterDisplay() {
+  // Chỉ lấy phần 'count' của trạng thái
+  const count = useCounterStore(state => state.count);
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+    </div>
+  );
+}
+
+function CounterControls() {
+   // Chỉ lấy các hành động 'increment' và 'decrement'
+   const increment = useCounterStore(state => state.increment);
+   const decrement = useCounterStore(state => state.decrement);
+
+   return (
+     <div>
+       <button onClick={increment}>Tăng</button>
+       <button onClick={decrement}>Giảm</button>
+     </div>
+   );
+}
+```
+
+3. **Cập nhật trạng thái**: Khi người dùng tương tác với giao diện (ví dụ: click nút), bạn gọi các hành động (actions) đã định nghĩa trong store. Hành động này sẽ sử dụng hàm `set` để cập nhật trạng thái trong store.
+
+4. **Zustand tự động cập nhật Component**: Khi trạng thái trong store thay đổi, Zustand sẽ tự động thông báo cho các component đang sử dụng hook và đã chọn phần trạng thái đó. Các component này sẽ được re-render với dữ liệu mới nhất từ store.

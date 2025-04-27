@@ -1,0 +1,145 @@
+---
+title: Khởi tạo mô hình
+---
+
+Hỗ trợ các định dạng `IFC 2x3`, `IFC 4.0`, `IFC 4.1`, `FBX`, `KML`, `KMZ`, `3dtile (Cesium)`
+
+## loadTree3DTileUrl
+Hàm khởi tạo dạng cây thư mục mô hình
+```js
+let loadById = await viewer.loadTree3DTileUrl(urlLoadTree, objectTreeLoad?);
+```
+
+- **`urlLoadTree: string || "" `** Đối với trường hợp có "[objectTreeLoad](loadView#objecttreeload)" thì đặt **`urlLoadTree = "" `**
+
+### objectTreeLoad
+
+| Prop            | Type                 | Default  |
+| --------------- | -------------------- | -------- |
+| `id`            | string               | -        |
+| `name`          | string               | -        |
+| `parentID`?     | string \|\| undefine | undefine |
+| `url`?          | string \|\| undefine | undefine |
+| `translateId`?  | string \|\| undefine | undefine |
+| `contentType`   | string \|\| undefine | -        |
+| `loadType`      | number               | -        |
+| `isShow`        | boolean              | -        |
+| `isFolder`      | boolean              | -        |
+| `x`             | number \|\| undefine | undefine |
+| `y`             | number \|\| undefine | undefine |
+| `z`             | number \|\| undefine | undefine |
+| `height`        | number \|\| undefine | undefine |
+| `latitude`      | number \|\| undefine | undefine |
+| `longitude`     | number \|\| undefine | undefine |
+| `maximumScreen` | number \|\| undefine | undefine |
+
+## load3DTileUrl
+Hàm khởi tạo mô hình theo đường dẫn
+```js
+let loadByUrl = await viewer?.load3DTileUrl(url:string, name?: "Tên mô hình", urlConnect?: string, inputObjs?: IInputObjs3DTile);
+```
+- `url`: Đường dẫn đến mô hình
+- `name`: Tên mô hình (đế trống tự động lấy chuỗi) 
+- `urlConnect`: Đường dẫn đến file liên kết (tùy chọn)
+- `inputObjs`: Thông số thay đổi cho mô hình (tùy chọn xem kiểu dự liệu tại [IInputObjs3DTile](loadView#iinputobjs3dtile))
+
+## load3DTileById
+Hàm khởi tạo mô hình theo Id \
+Chỉ trường hợp khởi tạo bằng `load3DTileById` mới xem được thuộc tính của đối tượng
+```js
+let loadById = await viewer?.load3DTileById(id:string, name?: "Tên mô hình", urlConnect?: string, inputObjs?: IInputObjs3DTile);
+```
+
+- `id`: id của mô hình
+- `name`: Tên mô hình (đế trống tự động lấy chuỗi) 
+- `urlConnect`: Đường dẫn đến file liên kết (tùy chọn)
+- `inputObjs`: Thông số thay đổi cho mô hình (tùy chọn xem kiểu dự liệu tại [IInputObjs3DTile](loadView#iinputobjs3dtile))
+
+
+## Load theo URL file KMZ (KML)
+
+```js
+let loadByKMZ = await viewer?.loadKMZ(url:string, "Tên mô hình");
+```
+
+## IInputObjs3DTile
+
+| Prop             | Type                 | Default  |
+| ---------------- | -------------------- | -------- |
+| `x`?             | number \|\| undefine | undefine |
+| `y`?             | number \|\| undefine | undefine |
+| `z`?             | number \|\| undefine | undefine |
+| `height`?        | number \|\| undefine | undefine |
+| `latitude`?      | number \|\| undefine | undefine |
+| `longitude`?     | number \|\| undefine | undefine |
+| `maximumScreen`? | number \|\| undefine | undefine |
+
+## Ví dụ
+
+Load theo Tree
+
+```js
+const treesLoad = [
+  {
+    id: "e550baef-bd67-4f18-8b36-69dbeb2783a3",
+    name: "Điều phối 3",
+    parentID: null,
+    url: null,
+    translateId: null,
+    contentType: null,
+    fileType: null,
+    loadType: 0,
+    isShow: true,
+    isFolder: true,
+  },
+  {
+    id: "7b8d8393-1018-43ac-88e1-f4ad833b5448",
+    name: "Cong",
+    parentID: "e550baef-bd67-4f18-8b36-69dbeb2783a3",
+    url: null,
+    translateId: null,
+    contentType: null,
+    fileType: null,
+    loadType: 0,
+    isShow: true,
+    isFolder: true,
+  },
+  {
+    id: "69a2fd59-1e43-4491-80f6-7ced161df043",
+    name: "Thoai 2",
+    parentID: "e23ba525-6bc5-4a3e-9143-683c1a0b930a",
+    url: null,
+    translateId: null,
+    contentType: null,
+    fileType: null,
+    loadType: 0,
+    isShow: true,
+    isFolder: true,
+  },
+  {
+    id: "579fbb8a-ba2d-4116-a03a-a0904f135b62",
+    name: "QL57_DinhKhao0.08.kmz",
+    parentID: "69a2fd59-1e43-4491-80f6-7ced161df043",
+    url: "https://hcm.s3storage.vn/0535f034-0e0b-4d34-81cc-06d7d509d43a/Sites/Projects/c6079320-24ec-44a6-b6bc-fe84594a947b/Files/69a2fd59-1e43-4491-80f6-7ced161df043/579fbb8a-ba2d-4116-a03a-a0904f135b62.kmz",
+    translateId: null,
+    contentType: "kmz",
+    loadType: 0,
+    isShow: true,
+    isFolder: false,
+  },
+];
+
+let loadTreeByData = await viewer.loadTree3DTileUrl("", treesLoad);
+
+// defaultCameraView:IViewSave
+if (defaultCameraView) {
+  viewer.loadViewCamera(defaultCameraView);
+} else {
+  //Nếu không có defaultCameraView tự động di chuyển về Home
+  viewer.flyToHomeLocation();
+}
+```
+
+- **`viewer.loadViewCamera`** xem tại "[loadViewCamera](sceneManage#loadviewcamera)"
+- **`viewer.flyToHomeLocation`** xem tại "[flyToHomeLocation](sceneManage#flytohomelocation)"
+- **`defaultCameraView: IViewSave `** xem tại "[IViewSave](sceneManage#iviewsave)"

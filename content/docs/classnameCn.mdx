@@ -1,0 +1,17 @@
+---
+title: cn className
+description: Hàm tiện ích như cn (hoặc classnames, clsx)
+---
+
+## Thường được sử dụng khi nào?
+
+
+Hàm tiện ích như `cn` (hoặc `classnames`, `clsx`) thường được sử dụng trong React (và các framework giao diện người dùng khác) khi bạn cần quản lý động các lớp CSS cho một phần tử HTML. Cụ thể, nó rất hữu ích trong các trường hợp sau:
+
+- Áp dụng lớp dựa trên trạng thái (state) hoặc thuộc tính (props): Đây là trường hợp phổ biến nhất, như ví dụ của bạn isActive && `"bg-neutral-200/80"`. Bạn muốn thay đổi giao diện của component dựa trên việc nó đang ở trạng thái "active", "loading", "disabled", "invalid",...
+
+- Kết hợp nhiều lớp cố định và lớp động: Component của bạn có thể luôn có một vài lớp CSS mặc định, và sau đó thêm/bớt các lớp khác tùy theo điều kiện. `cn` giúp bạn kết hợp chúng một cách gọn gàng.
+
+- Làm việc với CSS Modules hoặc các thư viện CSS Utility-first (như Tailwind CSS): Khi tên lớp CSS có thể dài hoặc cần kết hợp phức tạp, `cn` giúp cú pháp trở nên dễ đọc và dễ bảo trì hơn nhiều so với việc nối chuỗi thủ công.
+
+- Tránh logic phức tạp trong JSX: Thay vì viết các biểu thức ternary operator (`condition` ? `'class-a'` : `'class-b'`) hoặc nối chuỗi if/else dài dòng ngay trong thuộc tính className, bạn đưa logic đó vào bên trong hàm `cn`.

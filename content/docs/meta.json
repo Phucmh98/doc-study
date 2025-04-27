@@ -1,0 +1,10 @@
+{
+    "title": "Name of Folder",
+    "pages": [
+      "function", 
+      "classnameCn",
+      "zustand",
+      "loadView",
+      "sceneManage"
+    ]
+  }

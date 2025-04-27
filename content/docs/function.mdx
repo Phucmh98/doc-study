@@ -1,0 +1,98 @@
+---
+title: Fucntion Component
+description: Các loại Fucntion Component
+---
+
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";
+import { TypeTable } from "fumadocs-ui/components/type-table";
+
+## 1. Arrow Function Component với const (Cách đầu tiên)
+
+```js
+const Home = () => {
+  return (
+    <div>
+      <h1>Welcome to Next.js!</h1>
+      <p>This is a simple page.</p>
+    </div>
+  );
+};
+
+export default Home;
+```
+
+Đặc điểm nổi bật:
+
+- Sử dụng cú pháp arrow function.
+- Tương thích với ES6+ và có cách viết ngắn gọn.
+- Thường được dùng khi không cần lifecycle methods hoặc state.
+
+Ưu điểm:
+
+- Gọn gàng và dễ đọc.
+- Tự động bind this (nếu sử dụng state hay methods).
+- Hạn chế:- Không thể sử dụng như constructor hoặc mở rộng với class.
+
+## 2. Function Component với Default Export (Cách thứ hai)
+
+```js
+import React from "react";
+
+export default function page() {
+  return <div>page</div>;
+}
+```
+
+Đặc điểm nổi bật:
+
+- Sử dụng cú pháp function declaration.
+- Thích hợp cho những ai quen dùng cú pháp truyền thống.
+
+Ưu điểm:
+
+- Dễ hiểu với lập trình viên mới bắt đầu.
+- Không cần tạo biến như khi dùng const.
+
+Hạn chế:
+
+- Dễ bị "trùng tên" khi mở rộng dự án, đặc biệt nếu bạn dùng tên function và export ở các file khác nhau.
+
+## 3. Function Component với Named Function và Export Riêng (Cách thứ ba)
+
+```js
+import React from "react";
+
+function page() {
+  return <div>page</div>;
+}
+
+export default page;
+```
+
+Đặc điểm nổi bật:
+
+- Tách biệt giữa khai báo function và xuất component.
+
+Ưu điểm:
+
+- Dễ dàng mở rộng component trong tương lai.
+- Cho phép viết thêm logic bên dưới function trước khi export.
+
+Hạn chế:
+
+- Không ngắn gọn bằng arrow function.
+
+## So sánh chính
+
+| Tiêu chí             | Cách 1: Arow Function | Cách 2: Fucntion Declaration (Defaule Export) | Cách 3: Named Function (Separate Export) |
+| -------------------- | --------------------- | --------------------------------------------- | ---------------------------------------- |
+| Ngắn gọn             | ✔️                    | ❌                                            | ❌                                       |
+| Rỏ ràng cho Beginner | ❌                    | ✔️                                            | ✔️                                       |
+| Khả năng mở rộng     | ❌                    | ❌                                            | ✔️                                       |
+
+Kết luận:
+- Nếu cần code gọn nhẹ, chọn cách 1.
+- Nếu quen phong cách truyền thống, cách 2 hoặc cách 3 đều tốt.
+- Nếu dự án lớn cần mở rộng, ưu tiên cách 3.
+
+
