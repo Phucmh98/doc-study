@@ -4,6 +4,7 @@
       "function", 
       "classnameCn",
       "zustand",
+      "useState",
       "loadView",
       "sceneManage"
     ]

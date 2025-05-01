@@ -1,0 +1,56 @@
+---
+title: useState()
+description: Là một hook của React giúp quản lý trạng thái (state) trong component. Dùng trong client-side component (phía trình duyệt).
+---
+
+## Giải thích `useState` là gì?
+
+`useState` là một Hook của React cho phép bạn tạo và quản lý state trong function component.
+Nó giúp lưu trữ dữ liệu có thể thay đổi và làm UI cập nhật mỗi khi state thay đổi.
+
+## Khi nào sử dụng `useState`?
+Sử dụng useState khi bạn cần:
+
+- Giá trị có thể thay đổi theo thời gian hoặc tương tác người dùng
+
+- Cần React tự động render lại UI khi giá trị đó thay đổi
+
+📌 Một số tình huống điển hình:
+
+- Đếm số lần click
+
+- Nhập liệu trong form
+
+- Mở/đóng modal, menu
+
+- Hiển thị loading, lỗi
+
+- Lưu dữ liệu tạm thời (danh sách, checkbox,...)
+
+## Ví dụ đơn giản: Đếm số lần bấm
+
+```js 
+import React, { useState } from 'react';
+
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <p>Bạn đã bấm {count} lần</p>
+      <button onClick={() => setCount(count + 1)}>Bấm tôi</button>
+    </div>
+  );
+}
+
+```
+
+## 🛑 Không nên dùng `useState` khi:
+
+- Dữ liệu không thay đổi → dùng biến thường
+
+- Dữ liệu đã có từ props → không cần đưa vào state
+
+- Dữ liệu có thể tính toán từ nơi khác → dùng hàm, `useMemo`
+
+- Cần lưu trữ dữ liệu phức tạp hoặc chia sẻ giữa nhiều component → dùng context, Redux, hoặc useReducer
